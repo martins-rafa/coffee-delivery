@@ -37,7 +37,6 @@ html:focus-within {
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
-  line-height: 1.5;
 
   font-family: ${({ theme }) => theme.fonts.regular};
   font-weight: 400;
