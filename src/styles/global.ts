@@ -33,6 +33,12 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
+:focus {
+  outline: 0;
+  box-shadow: 0 0 0 2px ${(props) => props.theme.colors['brand-purple-dark']}
+}
+
+
 /* Set core body defaults */
 body {
   min-height: 100vh;
@@ -68,6 +74,17 @@ select {
 
 button {
   cursor: pointer;
+}
+
+/* remove input default style */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none ;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
