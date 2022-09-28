@@ -2,6 +2,7 @@ import {
   HeroContainer,
   HeroContent,
   HeroTitle,
+  InfoContainer,
   ServicePerksContainer,
 } from './styles'
 
@@ -18,7 +19,7 @@ export function Hero() {
   return (
     <HeroContainer>
       <HeroContent className="container">
-        <div>
+        <InfoContainer>
           <section>
             <HeroTitle size="xl">
               Find the perfect coffee for any time of the day
@@ -55,9 +56,11 @@ export function Hero() {
               text="Coffee arrives fresh and hot to you"
             />
           </ServicePerksContainer>
-        </div>
+        </InfoContainer>
 
-        <img src={HeroImage} alt="" />
+        <div>
+          <img src={HeroImage} alt="" />
+        </div>
       </HeroContent>
     </HeroContainer>
   )
