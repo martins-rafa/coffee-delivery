@@ -5,6 +5,10 @@ export const CheckoutForm = styled.form`
   justify-content: space-between;
   gap: 2rem;
   margin-top: 2.5rem;
+
+  @media (max-width: 1079px) {
+    flex-direction: column;
+  }
 `
 export const FormSectionStyle = styled.div`
   width: 100%;
