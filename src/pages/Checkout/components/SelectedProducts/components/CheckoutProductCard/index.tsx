@@ -1,23 +1,50 @@
 import { Trash } from 'phosphor-react'
+import { useContext } from 'react'
 import { QuantityInput } from '../../../../../../components/QuantityInput'
 import { Paragraph } from '../../../../../../components/Typography'
+import { CartContext, CartItem } from '../../../../../../contexts/CartContext'
 import {
   ActionsContainer,
   CheckoutProductCardContainer,
   RemoveButton,
 } from './styles'
 
-export function CheckoutProductCard() {
+interface ProductCartProps {
+  product: CartItem
+}
+
+export function CheckoutProductCard({ product }: ProductCartProps) {
+  const { changeCartItemQuantity, removeProductFromCart } =
+    useContext(CartContext)
+  const total = (product.price * product.quantity).toFixed(2)
+
+  function handleIncreaseQuantity() {
+    changeCartItemQuantity(product.id, 'increase')
+  }
+
+  function handleDecreaseQuantity() {
+    changeCartItemQuantity(product.id, 'decrease')
+  }
+
+  function handleRemoveProduct() {
+    removeProductFromCart(product.id)
+  }
+
   return (
     <CheckoutProductCardContainer>
       <div>
-        <img src="/products/Expresso.png" alt="" />
+        <img src={`/products/${product.image}`} alt="" />
         <div>
-          <Paragraph color="subtitle">Expresso</Paragraph>
+          <Paragraph color="subtitle">{product.name}</Paragraph>
 
           <ActionsContainer>
-            <QuantityInput size="small" />
-            <RemoveButton>
+            <QuantityInput
+              size="small"
+              onIncrease={handleIncreaseQuantity}
+              onDecrease={handleDecreaseQuantity}
+              quantity={product.quantity}
+            />
+            <RemoveButton onClick={handleRemoveProduct}>
               <Trash size={16} />
               REMOVE
             </RemoveButton>
@@ -25,7 +52,7 @@ export function CheckoutProductCard() {
         </div>
       </div>
 
-      <p>$ 9.90</p>
+      <p>{`$ ${total}`}</p>
     </CheckoutProductCardContainer>
   )
 }

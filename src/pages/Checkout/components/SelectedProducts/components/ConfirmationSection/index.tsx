@@ -1,18 +1,25 @@
+import { useContext } from 'react'
 import { Button } from '../../../../../../components/Button'
 import { Paragraph } from '../../../../../../components/Typography'
+import { CartContext } from '../../../../../../contexts/CartContext'
 import { ConfirmationSectionContainer } from './styles'
 
+const deliveryFee = 3.49
+
 export function ConfirmationSection() {
+  const { productsTotal, cartQuantity } = useContext(CartContext)
+  const OrderTotal = (productsTotal + deliveryFee).toFixed(2)
+
   return (
     <ConfirmationSectionContainer>
       <div>
         <Paragraph size="s">Products Total</Paragraph>
-        <Paragraph>$ 19.80</Paragraph>
+        <Paragraph>{`$ ${productsTotal.toFixed(2)}`}</Paragraph>
       </div>
 
       <div>
         <Paragraph size="s">Delivery</Paragraph>
-        <Paragraph>$ 3.49</Paragraph>
+        <Paragraph>{`$ ${deliveryFee}`}</Paragraph>
       </div>
 
       <div>
@@ -20,11 +27,11 @@ export function ConfirmationSection() {
           Total
         </Paragraph>
         <Paragraph weight={700} color="subtitle" size="l">
-          $ 23.29
+          {`$ ${OrderTotal}`}
         </Paragraph>
       </div>
 
-      <Button text="Confirm Order" />
+      <Button text="Confirm Order" disabled={cartQuantity <= 0} />
     </ConfirmationSectionContainer>
   )
 }
