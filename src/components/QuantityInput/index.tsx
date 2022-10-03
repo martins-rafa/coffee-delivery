@@ -3,18 +3,26 @@ import { QuantityButton, QuantityInputContainer } from './styles'
 
 interface QuantityInputProps {
   size?: 'medium' | 'small'
+  onIncrease: () => void
+  onDecrease: () => void
+  quantity: number
 }
 
-export function QuantityInput({ size = 'medium' }: QuantityInputProps) {
+export function QuantityInput({
+  onIncrease,
+  onDecrease,
+  quantity,
+  size = 'medium',
+}: QuantityInputProps) {
   return (
     <QuantityInputContainer size={size}>
-      <QuantityButton>
+      <QuantityButton disabled={quantity <= 1} onClick={onDecrease}>
         <Minus size={14} weight="fill" />
       </QuantityButton>
 
-      <input type="number" readOnly value={1} />
+      <input type="number" readOnly value={quantity} />
 
-      <QuantityButton>
+      <QuantityButton onClick={onIncrease}>
         <Plus size={14} weight="fill" />
       </QuantityButton>
     </QuantityInputContainer>
