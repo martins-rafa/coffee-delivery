@@ -51,4 +51,23 @@ export const HeaderButton = styled.button`
   padding: 0 0.5rem;
 
   font-size: ${({ theme }) => theme.textSizes['text-regular-s']};
+
+  position: relative;
+  cursor: inherit;
+
+  span {
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    top: -0.625rem;
+    right: -0.625rem;
+    color: ${({ theme }) => theme.colors['base-white']};
+    background-color: ${({ theme }) => theme.colors['brand-yellow-dark']};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
 `
