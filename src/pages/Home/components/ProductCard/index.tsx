@@ -14,6 +14,8 @@ import {
 
 import { Paragraph, Title } from '../../../../components/Typography'
 import { QuantityInput } from '../../../../components/QuantityInput'
+import { useContext, useState } from 'react'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export interface Product {
   id: number
@@ -29,6 +31,28 @@ interface ProductProps {
 }
 
 export function ProductCard({ product }: ProductProps) {
+  const [quantity, setQuantity] = useState(1)
+
+  const { AddProductToCart } = useContext(CartContext)
+
+  function handleIncreaseQuantity() {
+    setQuantity((state) => state + 1)
+  }
+
+  function handleDecreaseQuantity() {
+    setQuantity((state) => state - 1)
+  }
+
+  function handleAddToCart() {
+    const productToAdd = {
+      ...product,
+      quantity,
+    }
+
+    AddProductToCart(productToAdd)
+    setQuantity(1)
+  }
+
   return (
     <ProductCardContainer>
       <img src={`/products/${product.image}`} alt="" />
@@ -52,8 +76,12 @@ export function ProductCard({ product }: ProductProps) {
         </ProductPrice>
 
         <AddToCartWrapper>
-          <QuantityInput />
-          <AddToCartButton>
+          <QuantityInput
+            onIncrease={handleIncreaseQuantity}
+            onDecrease={handleDecreaseQuantity}
+            quantity={quantity}
+          />
+          <AddToCartButton onClick={handleAddToCart}>
             <ShoppingCart size={22} weight="fill" />
           </AddToCartButton>
         </AddToCartWrapper>
