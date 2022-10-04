@@ -1,6 +1,27 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const PaymentMethodContainer = styled.div`
+  input {
+    visibility: hidden;
+    appearance: none;
+  }
+
+  input + label div {
+    border: 1px solid transparent;
+  }
+
+  input:checked + label div {
+    ${({ theme }) => css`
+      background: ${theme.colors['brand-purple-light']};
+      border-color: ${theme.colors['brand-purple']};
+
+      &:hover {
+        background: ${theme.colors['brand-purple-light']};
+      }
+    `}
+  }
+`
+export const LabelContainer = styled.div`
   height: 3rem;
   display: flex;
   align-items: center;

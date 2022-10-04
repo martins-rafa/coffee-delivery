@@ -31,7 +31,7 @@ export function ConfirmationSection() {
         </Paragraph>
       </div>
 
-      <Button text="Confirm Order" disabled={cartQuantity <= 0} />
+      <Button text="Confirm Order" disabled={cartQuantity <= 0} type="submit" />
     </ConfirmationSectionContainer>
   )
 }

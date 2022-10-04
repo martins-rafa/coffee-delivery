@@ -1,11 +1,25 @@
-import { CreditCard } from 'phosphor-react'
-import { PaymentMethodContainer } from './styles'
+import { forwardRef, InputHTMLAttributes, ReactNode } from 'react'
+import { PaymentMethodContainer, LabelContainer } from './styles'
 
-export function PaymentMethodInput() {
+type PaymentMethodProps = InputHTMLAttributes<HTMLInputElement> & {
+  label: string
+  icon: ReactNode
+}
+
+// eslint-disable-next-line react/display-name
+export const PaymentMethodInput = forwardRef<
+  HTMLInputElement,
+  PaymentMethodProps
+>(({ id, label, icon, ...props }, ref) => {
   return (
     <PaymentMethodContainer>
-      <CreditCard size={16} />
-      Credit Card
+      <input type="radio" id={id} {...props} name="paymentMethod" ref={ref} />
+      <label htmlFor={id}>
+        <LabelContainer>
+          {icon}
+          {label}
+        </LabelContainer>
+      </label>
     </PaymentMethodContainer>
   )
-}
+})
