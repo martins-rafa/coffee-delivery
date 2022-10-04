@@ -5,9 +5,30 @@ import SuccessIllustration from '../../assets/Success-Illustration.png'
 import { Info } from '../../components/Info'
 import { Clock, CurrencyDollar, MapPin } from 'phosphor-react'
 import { useTheme } from 'styled-components'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { CheckoutData } from '../Checkout'
+import { paymentMethods } from '../Checkout/components/OrderInfo/components/PaymentOptions'
+import { useEffect } from 'react'
+
+interface LocationType {
+  state: CheckoutData
+}
 
 export function SuccessPage() {
   const { colors } = useTheme()
+
+  const { state } = useLocation() as unknown as LocationType
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!state) {
+      navigate('/')
+    }
+  }, [])
+
+  if (!state) return <></>
+
   return (
     <SuccessPageContainer className="container">
       <div>
@@ -24,9 +45,12 @@ export function SuccessPage() {
             iconBg={colors['brand-purple']}
             text={
               <Paragraph>
-                Delivery at <strong>Example Street, 96</strong>
+                Delivery at{' '}
+                <strong>
+                  {state.street}, {state.number}
+                </strong>
                 <br />
-                Copacabana - Rio de Janeiro, RJ
+                {state.district} - {state.city}, {state.state}
               </Paragraph>
             }
           />
@@ -50,7 +74,7 @@ export function SuccessPage() {
               <Paragraph>
                 Payment method
                 <br />
-                <strong>Credit Card</strong>
+                <strong>{paymentMethods[state.paymentMethod].label}</strong>
               </Paragraph>
             }
           />
